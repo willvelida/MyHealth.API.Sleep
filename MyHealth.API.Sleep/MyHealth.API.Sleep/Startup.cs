@@ -3,6 +3,8 @@ using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyHealth.API.Sleep;
+using MyHealth.API.Sleep.Services;
+using MyHealth.API.Sleep.Validators;
 using System.IO;
 
 [assembly: FunctionsStartup(typeof(Startup))]
@@ -27,6 +29,8 @@ namespace MyHealth.API.Sleep
                 return new CosmosClient(configuration["CosmosDBConnectionString"]);
             });
 
+            builder.Services.AddScoped<ISleepDbService, SleepDbService>();
+            builder.Services.AddScoped<IDateValidator, DateValidator>();
         }
     }
 }
