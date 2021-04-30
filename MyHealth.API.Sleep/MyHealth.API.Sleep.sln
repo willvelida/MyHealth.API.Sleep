@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.API.Sleep", "MyHealth.API.Sleep\MyHealth.API.Sleep.csproj", "{657ACA7A-4304-4BDE-9884-42A7B3109CCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyHealth.API.Sleep.UnitTests", "MyHealth.API.Sleep.UnitTests\MyHealth.API.Sleep.UnitTests.csproj", "{450ABABE-74B8-4E87-9524-B8C89027262F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{657ACA7A-4304-4BDE-9884-42A7B3109CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{657ACA7A-4304-4BDE-9884-42A7B3109CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{657ACA7A-4304-4BDE-9884-42A7B3109CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{657ACA7A-4304-4BDE-9884-42A7B3109CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{450ABABE-74B8-4E87-9524-B8C89027262F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{450ABABE-74B8-4E87-9524-B8C89027262F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{450ABABE-74B8-4E87-9524-B8C89027262F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{450ABABE-74B8-4E87-9524-B8C89027262F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {22957BD0-E770-4471-BD5A-981E212271BC}
+	EndGlobalSection
+EndGlobal
