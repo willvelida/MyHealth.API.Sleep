@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyHealth.API.Sleep;
 using MyHealth.API.Sleep.Services;
 using MyHealth.API.Sleep.Validators;
+using MyHealth.Common;
 using System.IO;
 
 [assembly: FunctionsStartup(typeof(Startup))]
@@ -27,6 +28,12 @@ namespace MyHealth.API.Sleep
             {
                 IConfiguration configuration = sp.GetService<IConfiguration>();
                 return new CosmosClient(configuration["CosmosDBConnectionString"]);
+            });
+
+            builder.Services.AddSingleton<IServiceBusHelpers>(sp =>
+            {
+                IConfiguration configuration = sp.GetService<IConfiguration>();
+                return new ServiceBusHelpers(configuration["ServiceBusConnectionString"]);
             });
 
             builder.Services.AddScoped<ISleepDbService, SleepDbService>();

@@ -1,7 +1,4 @@
 ﻿using MyHealth.API.Sleep.Validators;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace MyHealth.API.Sleep.UnitTests.ValidatorTests
