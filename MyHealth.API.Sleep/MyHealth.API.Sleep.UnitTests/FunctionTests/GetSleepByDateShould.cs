@@ -45,9 +45,9 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
         }
 
         [Theory]
-        [InlineData("100/12/2020")]
-        [InlineData("12/111/2020")]
-        [InlineData("12/11/20201")]
+        [InlineData("2020-12-100")]
+        [InlineData("2020-100-12")]
+        [InlineData("20201-12-11")]
         public async Task ThrowBadRequestResultWhenSleepDateRequestIsInvalid(string invalidDateInput)
         {
             // Arrange
@@ -76,7 +76,7 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
             var sleepEnvelope = new mdl.SleepEnvelope();
             byte[] byteArray = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(sleepEnvelope));
             MemoryStream memoryStream = new MemoryStream(byteArray);
-            _mockHttpRequest.Setup(r => r.Query["date"]).Returns("31/12/2019");
+            _mockHttpRequest.Setup(r => r.Query["date"]).Returns("2019-12-31");
             _mockHttpRequest.Setup(r => r.Body).Returns(memoryStream);
 
             _mockDateValidator.Setup(x => x.IsSleepDateValid(It.IsAny<string>())).Returns(true);
@@ -101,7 +101,7 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
                 Id = Guid.NewGuid().ToString(),
                 Sleep = new mdl.Sleep
                 {
-                    SleepDate = "31/12/2019"
+                    SleepDate = "2019-12-31"
                 },
                 DocumentType = "Test"
             };
@@ -129,7 +129,7 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
             var sleepEnvelope = new mdl.SleepEnvelope();
             byte[] byteArray = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(sleepEnvelope));
             MemoryStream memoryStream = new MemoryStream(byteArray);
-            _mockHttpRequest.Setup(r => r.Query["date"]).Returns("31/12/2019");
+            _mockHttpRequest.Setup(r => r.Query["date"]).Returns("2019-12-31");
             _mockHttpRequest.Setup(r => r.Body).Returns(memoryStream);
 
             _mockDateValidator.Setup(x => x.IsSleepDateValid(It.IsAny<string>())).Returns(true);
