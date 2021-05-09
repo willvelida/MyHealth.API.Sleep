@@ -33,15 +33,14 @@ namespace MyHealth.API.Sleep.Functions
 
         [FunctionName(nameof(GetSleepByDate))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Sleep")] HttpRequest req,
-            ILogger log)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Sleep/{sleepDate}")] HttpRequest req,
+            ILogger log,
+            string sleepDate)
         {
             IActionResult result;
 
             try
             {
-                string sleepDate = req.Query["date"];
-
                 bool isDateValid = _dateValidator.IsSleepDateValid(sleepDate);
                 if (isDateValid == false)
                 {

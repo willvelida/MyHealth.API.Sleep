@@ -31,7 +31,7 @@ namespace MyHealth.API.Sleep.Functions
 
         [FunctionName(nameof(GetAllSleepRecords))]
         public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Sleeps")] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Sleep")] HttpRequest req,
             ILogger log)
         {
             IActionResult result;

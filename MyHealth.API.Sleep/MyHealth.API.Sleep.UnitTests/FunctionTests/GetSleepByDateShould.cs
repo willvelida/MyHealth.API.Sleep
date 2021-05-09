@@ -54,13 +54,12 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
             var sleepEnvelope = new mdl.SleepEnvelope();
             byte[] byteArray = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(sleepEnvelope));
             MemoryStream memoryStream = new MemoryStream(byteArray);
-            _mockHttpRequest.Setup(r => r.Query["date"]).Returns(invalidDateInput);
             _mockHttpRequest.Setup(r => r.Body).Returns(memoryStream);
 
             _mockDateValidator.Setup(x => x.IsSleepDateValid(invalidDateInput)).Returns(false);
 
             // Act
-            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object);
+            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object, invalidDateInput);
 
             // Assert
             Assert.Equal(typeof(BadRequestResult), response.GetType());
@@ -76,14 +75,13 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
             var sleepEnvelope = new mdl.SleepEnvelope();
             byte[] byteArray = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(sleepEnvelope));
             MemoryStream memoryStream = new MemoryStream(byteArray);
-            _mockHttpRequest.Setup(r => r.Query["date"]).Returns("2019-12-31");
             _mockHttpRequest.Setup(r => r.Body).Returns(memoryStream);
 
             _mockDateValidator.Setup(x => x.IsSleepDateValid(It.IsAny<string>())).Returns(true);
             _mockSleepDbService.Setup(x => x.GetSleepRecordByDate(It.IsAny<string>())).Returns(Task.FromResult<mdl.SleepEnvelope>(null));
 
             // Act
-            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object);
+            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object, "2019-12-31");
 
             // Assert
             Assert.Equal(typeof(NotFoundResult), response.GetType());
@@ -108,14 +106,13 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
             var sleepDate = sleepEnvelope.Sleep.SleepDate;
             byte[] byteArray = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(sleepEnvelope));
             MemoryStream memoryStream = new MemoryStream(byteArray);
-            _mockHttpRequest.Setup(r => r.Query["date"]).Returns(sleepDate);
             _mockHttpRequest.Setup(r => r.Body).Returns(memoryStream);
 
             _mockDateValidator.Setup(x => x.IsSleepDateValid(sleepDate)).Returns(true);
             _mockSleepDbService.Setup(x => x.GetSleepRecordByDate(sleepDate)).ReturnsAsync(sleepEnvelope);
 
             // Act
-            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object);
+            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object, sleepDate);
 
             // Assert
             Assert.Equal(typeof(OkObjectResult), response.GetType());
@@ -129,14 +126,13 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
             var sleepEnvelope = new mdl.SleepEnvelope();
             byte[] byteArray = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(sleepEnvelope));
             MemoryStream memoryStream = new MemoryStream(byteArray);
-            _mockHttpRequest.Setup(r => r.Query["date"]).Returns("2019-12-31");
             _mockHttpRequest.Setup(r => r.Body).Returns(memoryStream);
 
             _mockDateValidator.Setup(x => x.IsSleepDateValid(It.IsAny<string>())).Returns(true);
             _mockSleepDbService.Setup(x => x.GetSleepRecordByDate(It.IsAny<string>())).ThrowsAsync(new Exception());
 
             // Act
-            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object);
+            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object, "2019-12-31");
 
             // Assert
             Assert.Equal(typeof(StatusCodeResult), response.GetType());
