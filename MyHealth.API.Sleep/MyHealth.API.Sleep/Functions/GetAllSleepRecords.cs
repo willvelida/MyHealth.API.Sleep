@@ -42,6 +42,12 @@ namespace MyHealth.API.Sleep.Functions
 
                 var sleepResponses = await _sleepDbService.GetSleepRecords();
 
+                if (sleepResponses == null)
+                {
+                    result = new NotFoundResult();
+                    return result;
+                }
+
                 foreach (var item in sleepResponses)
                 {
                     sleeps.Add(item.Sleep);

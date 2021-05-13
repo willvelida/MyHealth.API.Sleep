@@ -90,6 +90,24 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
         }
 
         [Fact]
+        public async Task ThrowBadRequestResultWhenSleepEnvelopesAreNull()
+        {
+            // Arrange
+            MemoryStream memoryStream = new MemoryStream();
+            _mockHttpRequest.Setup(r => r.Body).Returns(memoryStream);
+            _mockSleepDbService.Setup(x => x.GetSleepRecords()).Returns(Task.FromResult<List<mdl.SleepEnvelope>>(null));
+
+            // Act
+            var response = await _func.Run(_mockHttpRequest.Object, _mockLogger.Object);
+
+            // Assert
+            Assert.Equal(typeof(NotFoundResult), response.GetType());
+            var responseAsStatusCodeResult = (StatusCodeResult)response;
+            Assert.Equal(404, responseAsStatusCodeResult.StatusCode);
+            _mockServiceBusHelpers.Verify(x => x.SendMessageToQueue(It.IsAny<string>(), It.IsAny<Exception>()), Times.Never);
+        }
+
+        [Fact]
         public async Task Throw500InternalServerErrorStatusCodeWhenSleepDbServiceThrowsException()
         {
             // Arrange
