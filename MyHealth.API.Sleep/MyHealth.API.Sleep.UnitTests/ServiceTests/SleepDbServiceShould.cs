@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using AutoFixture;
+using FluentAssertions;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -39,15 +40,8 @@ namespace MyHealth.API.Sleep.UnitTests.ServiceTests
         {
             // Arrange
             List<mdl.SleepEnvelope> sleepEnvelopes = new List<mdl.SleepEnvelope>();
-            mdl.SleepEnvelope sleepEnvelope = new mdl.SleepEnvelope
-            {
-                Id = Guid.NewGuid().ToString(),
-                DocumentType = "Sleep",
-                Sleep = new mdl.Sleep
-                {
-                    SleepDate = "31/12/2019"
-                }
-            };
+            var fixture = new Fixture();
+            mdl.SleepEnvelope sleepEnvelope = fixture.Create<mdl.SleepEnvelope>();
             sleepEnvelopes.Add(sleepEnvelope);
 
             _mockContainer.SetupItemQueryIteratorMock(sleepEnvelopes);

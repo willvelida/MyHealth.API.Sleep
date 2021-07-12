@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoFixture;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -46,15 +47,8 @@ namespace MyHealth.API.Sleep.UnitTests.FunctionTests
         {
             // Arrange
             var sleeps = new List<mdl.SleepEnvelope>();
-            var sleepEnvelope = new mdl.SleepEnvelope
-            {
-                Id = Guid.NewGuid().ToString(),
-                Sleep = new mdl.Sleep
-                {
-                    SleepDate = "31/12/2019"
-                },
-                DocumentType = "Sleep"
-            };
+            var fixture = new Fixture();
+            var sleepEnvelope = fixture.Create<mdl.SleepEnvelope>();
             sleeps.Add(sleepEnvelope);
             byte[] byteArray = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(sleeps));
             MemoryStream memoryStream = new MemoryStream(byteArray);

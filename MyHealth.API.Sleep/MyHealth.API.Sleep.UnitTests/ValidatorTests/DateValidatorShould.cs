@@ -13,7 +13,7 @@ namespace MyHealth.API.Sleep.UnitTests.ValidatorTests
         }
 
         [Fact]
-        public void ReturnFalseIfActivityDateIsNotInValidFormat()
+        public void ReturnFalseIfSleepDateIsNotInValidFormat()
         {
             // Arrange
             string testSleepDate = "2021-12-100";
@@ -26,7 +26,7 @@ namespace MyHealth.API.Sleep.UnitTests.ValidatorTests
         }
 
         [Fact]
-        public void ReturnTrueIfActivityDateIsInValidFormat()
+        public void ReturnTrueIfSleepDateIsInValidFormat()
         {
             // Arrange
             string testSleepDate = "2020-12-31";
